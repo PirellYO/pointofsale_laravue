@@ -1,26 +1,16 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue';
+import moment from 'moment';
+
+moment.locale('fr')
 </script>
 
 <template>
-  <header class="sticky">
-    <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
-
-    <!-- <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/produit">Produits</RouterLink>
-      </nav>
-    </div> -->
+  <header>
     <NavBar />
   </header>
 
   <RouterView />
+
 </template>
-
-<style scoped>
-
-</style>

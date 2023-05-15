@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('code_barre');
             $table->string('designation');
             $table->integer('quantite');
-            $table->decimal('prix', 10, 2);
+            $table->decimal('prix', 10, 0);
             $table->string('image')->nullable();
             $table->timestamps();
         });

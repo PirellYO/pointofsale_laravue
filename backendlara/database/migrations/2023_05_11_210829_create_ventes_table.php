@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('numero')->unique();
             $table->date('date_creation')->nullable();
-            $table->decimal('montant_total', 10, 2)->nullable();
+            $table->decimal('montant_total', 10, 0)->nullable();
             $table->timestamps();
         });
     }

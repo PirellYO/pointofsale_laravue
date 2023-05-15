@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('numero')->unique();
             $table->string('moyen_paiement');
-            $table->decimal('montant', 10, 2)->nullable();
+            $table->decimal('montant', 10, 0)->nullable();
             $table->unsignedBigInteger('vente_id');
             $table->timestamps();
 

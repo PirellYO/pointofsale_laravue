@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Vente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
@@ -14,7 +15,14 @@ class SaleController extends Controller
     {
         //
 
-        $sales = Vente::all();
+        $sales = Vente::orderByDesc('numero', 'date_creation')
+        ->join('ligne_articles', 'ventes.id', '=', 'ligne_articles.vente_id')
+        ->join('produits', 'ligne_articles.produit_id', '=', 'produits.id')
+        ->select('ventes.id', 'ventes.numero', 'ventes.date_creation', 'ventes.montant_total', DB::raw('GROUP_CONCAT(produits.designation, " (", ligne_articles.quantite, ")") as produits_quantite'))
+        ->groupBy('ventes.id')
+        ->orderByDesc('date_creation')
+        ->get();
+
         return response()->json($sales);
     }
 
@@ -32,31 +40,14 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         //
-        // $date = $request->input('date_creation');
-        // $date = now();
         $totalPanier = $request->input('montant_total');
-        // $moyenPaiement = $request->input('moyenPaiement');
 
         $vente = new Vente();
-        $vente->numero = $this->generateSaleNumber(); // Générer le numéro de vente automatiquement
-        $vente->date_creation = now(); // Date de création actuelle
+        $vente->numero = $this->generateSaleNumber();
+        $vente->date_creation = now(); 
         $vente->montant_total = $totalPanier;
         $vente->save();
 
-        // $vente->produits()->attach($request->produits);
-
-        // foreach ($produits as $produit) {
-        //     // Enregistrez les détails des produits vendus, par exemple :
-        //     $venteProduit = new Vente();
-        //     $venteProduit->vente_id = $vente->id;
-        //     $venteProduit->produit_id = $produit['id'];
-        //     $venteProduit->quantite = $produit['quantite'];
-        //     $venteProduit->save();
-        // }
-
-        // foreach ($produits as $produit) {
-        //     $vente->produits()->attach($produit['id'], ['quantite' => $produit['quantite']]);
-        // }
 
         return response()->json(['vente' => $vente], 201); 
        }

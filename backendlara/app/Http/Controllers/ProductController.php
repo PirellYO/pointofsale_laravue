@@ -54,11 +54,13 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produit $produit)
+    public function update(Request $request, $id)
     {
         //
 
         $quantiteVendue = $request->input('quantiteVendue');
+
+        $produit = Produit::findOrFail($id);
 
         if ($quantiteVendue > $produit->quantite) {
             return response()->json(['message' => 'La quantité vendue dépasse la quantité disponible'], 400);
@@ -68,7 +70,7 @@ class ProductController extends Controller
         $produit->save();
 
         return response()->json(['message' => 'Quantité du produit mise à jour avec succès']);
-    }
+        }
 
     /**
      * Remove the specified resource from storage.

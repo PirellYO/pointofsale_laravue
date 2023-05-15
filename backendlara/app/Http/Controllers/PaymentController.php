@@ -14,9 +14,17 @@ class PaymentController extends Controller
     {
         //
 
-        $paiements = Paiement::all();
+        // $paiements = Paiement::all();
+        // return response()->json($paiements);
+
+        $paiements = Paiement::join('ventes', 'paiements.vente_id', '=', 'ventes.id')
+                        ->select('paiements.*', 'ventes.numero AS numero_vente')
+                        ->orderByDesc('paiements.created_at')
+                        ->get();
+
         return response()->json($paiements);
     }
+    
 
     /**
      * Show the form for creating a new resource.

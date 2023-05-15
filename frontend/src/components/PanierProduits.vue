@@ -1,8 +1,8 @@
 <template>
-    <div class="inset-0 overflow-hidden">
-        <div class="pointer-events-none relative lg:absolute inset-y-0 right-0 flex max-w-full">
+    <div class="custom inset-0 top-4 overflow-hidden">
+        <div class="pointer-events-none relative lg:absolute inset-y-0 lg:inset-y-12 right-0 flex max-w-full">
             <div class="pointer-events-auto w-screen lg:max-w-sm xl:max-w-md md:p-4 md:pb-6">
-                <div class="lg:mx-3 xl:mx-0 flex relative top-12 bottom-0 max-h-[calc(100%-4rem)] flex-col bg-gray-200 rounded-lg shadow-xl">
+                <div class="lg:mx-3 xl:mx-0 flex relative top-0 bottom-0 max-h-full flex-col bg-gray-200 rounded-lg shadow-xl">
                     <div class="flex items-start px-4 py-3 sm:px-6 justify-between">
                         <h1 class="text-lg text-gray-900 font-bold">Panier</h1>
                     </div>
@@ -104,10 +104,7 @@
                                                         <p class="text-gray-500">Quantité: {{ ref.quantite }}</p>
 
                                                         <div class="flex">
-                                                            <!-- <button type="button" @click="supprimerDuPanier()"
-                                                                class="font-medium text-indigo-600 hover:text-indigo-500">
-                                                                <TrashIcon class="h-5 w-5 text-red-300" aria-hidden="true" />
-                                                            </button> -->
+                                                            
                                                         </div>
                                                         </div>
                                                     </div>
@@ -191,6 +188,8 @@ import { onMounted, ref, watch } from 'vue';
 
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {  TrashIcon  } from '@heroicons/vue/20/solid'
+
+const emit = defineEmits('maj-produit');
 
 const opene = ref(false);
 const openTicket = ref(false);
@@ -300,13 +299,31 @@ const faireVente = async () => {
       }
     }
 
+    // Mettre à jour la quantité des produits
+    for (const product of props.articlePanier) {
+      const updateProductResponse = await fetch(`http://localhost:8000/api/produits/${product.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          quantiteVendue: product.quantite,
+        }),
+      });
+
+      if (!updateProductResponse.ok) {
+        throw new Error('Erreur lors de la mise à jour de la quantité du produit');
+      }
+    }
+
+
     await enregistrerPaiement(venteId.value);
 
 
     } catch (error) {
         console.error('Une erreur s\'est produite lors de l\'enregistrement de la vente et du paiement :', error);
     }
-    
+
     opene.value = true
 } 
 
@@ -361,6 +378,8 @@ try {
     if (paiementMontant >= venteMontant.value) {
     // Imprimer le ticket de caisse
     // imprimerTicket();
+    // window.open(`/receipt?vente_id=${venteId.value}&paiement_id=${paiementData.id}`, '_blank');
+    // window.print();
     console.log("Tu peux imprimer le ticket");
   }
 
@@ -372,6 +391,7 @@ try {
     props.articlePanier.splice(0);
     total.value = 0;
     // opene.value = false;
+    emit('majProduit');
 }
 
 const imprimerTicket = () => {

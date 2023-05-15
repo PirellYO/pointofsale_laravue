@@ -9,16 +9,14 @@ class VentesTableSeeder extends Seeder
 {
     public function run()
     {
+        // Seeder pour la vente
+        // Vous pouvez décommenter si vous voulez créer des ventes
+
+        
         Vente::create([
             'numero' => 'VNT001',
             'date_creation' => '2022-01-01',
-            'montant_total' => 10000.00,
-        ]);
-
-        Vente::create([
-            'numero' => 'VNT002',
-            'date_creation' => '2022-02-15',
-            'montant_total' => 139700.00,
+            'montant_total' => 33000,
         ]);
 
         

@@ -24,10 +24,9 @@
             </div>
           </div>
         </div>
-        
 
-
-        <section aria-labelledby="section-1-title">
+        <!-- <Suspense> -->
+          <section aria-labelledby="section-1-title">
           <div class="bg-white">
             <div class="max-w-2xl px-4 py-2 sm:px-6 sm:py-2 lg:max-w-5xl lg:px-8">
               <h2 class="sr-only">Products</h2>
@@ -58,6 +57,16 @@
             </div>
           </div>
         </section>
+
+          <!-- <template #fallback>
+            Chargement...
+          </template>
+
+        </Suspense> -->
+        
+
+
+        
       </div>
 
       <!-- Right column -->
@@ -67,7 +76,7 @@
           <div class="overflow-hidden rounded-lg bg-white">
             <div class="p-6 ">
               <!-- Your content -->
-              <PanierProduitsVue :articlePanier="articlePanier" :total="total" />
+              <PanierProduitsVue :articlePanier="articlePanier" :total="total" @majProduit="majProduit" />
             </div>
           </div>
         </section>
@@ -80,7 +89,6 @@
 import {  computed, onMounted, ref } from 'vue';
 import PanierProduitsVue from '../components/PanierProduits.vue';
 import { MagnifyingGlassIcon, ShoppingCartIcon } from '@heroicons/vue/20/solid';
-import NavBar from '../components/NavBar.vue';
 
 
 const query = ref('')
@@ -103,6 +111,10 @@ const searchProducts = () => {
   });
 }
 
+const majProduit = async () =>{
+  await getProducts()
+}
+
 
 const ajoutAuPanier = (product) => {
   const indexProduit = articlePanier.value.findIndex((p) => p.reference === product.reference);
@@ -123,5 +135,6 @@ onMounted(async () => {
 })
 
 const filteredProducts = computed(searchProducts);
+
 
 </script>
