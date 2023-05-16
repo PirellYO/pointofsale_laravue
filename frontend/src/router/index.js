@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ListePaiementView from '../views/ListePaiementView.vue'
 import ListeVentesView from '../views/ListeVentesView.vue'
+// import ReceiptView from '../views/ReceiptView.vue'
 // import ListeProduits from '../components/ListeProduits.vue'
 // import PanierProduits from '../components/PanierProduits.vue'
 
@@ -24,12 +25,12 @@ const router = createRouter({
       name: 'Paiement',
       component: ListePaiementView
     },
-    { 
-      path: '/panier',
-      name:'panier',
-      component: () => import('../components/PanierProduits.vue')
-      // component: PanierProduits 
-    },
+    // { 
+    //   path: '/receipt',
+    //   name:'Reçu',
+    //   // component: () => import('../components/ReceiptView.com')
+    //   component: ReceiptView 
+    // },
   ]
 })
 

@@ -57,14 +57,21 @@
                         </div>
                     </div>
 
-                    <div v-if="total > 0" class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                    <div v-if="props.total > 0" class="border-t border-gray-200 px-4 py-6 sm:px-6">
                         <div class="flex justify-between text-lg font-medium text-gray-900">
                             <p>Total Panier :</p>
                             <p>{{ total }} F</p>
                         </div>
                         <div class="mt-6">
                             <button @click="faireVente(product)"
-                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Payer</button>
+                                class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">
+                                <svg v-if="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <BanknotesIcon v-else class="h-5 w-5 mr-3" aria-hidden="true" />
+                                Payer
+                            </button>
                         </div>
 
                         <!-- Modal Paiement -->
@@ -134,40 +141,14 @@
                                         </div>
                                     </div>
                                     <div class="mt-5 sm:mt-6">
-                                        <button type="button" class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" @click="enregistrerPaiement()">Enregistrer le paiement</button>
-                                    </div>
-                                    </DialogPanel>
-                                </TransitionChild>
-                                </div>
-                            </div>
-                            </Dialog>
-                        </TransitionRoot>
-
-                        <!-- Modal Impression Ticket -->
-                        <TransitionRoot as="template" :show="openTicket">
-                            <Dialog as="div" class="relative z-10" @close="openTicket = false">
-                            <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
-                                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-                            </TransitionChild>
-
-                            <div class="fixed inset-0 z-10 overflow-y-auto">
-                                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-                                    <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-                                    <div>
-                                        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                                        <!-- <CheckIcon class="h-6 w-6 text-green-600" aria-hidden="true" /> -->
-                                        </div>
-                                        <div class="mt-3 text-center sm:mt-5">
-                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Payment successful</DialogTitle>
-                                        <div class="mt-2">
-                                            <p class="text-sm text-gray-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eius aliquam laudantium explicabo pariatur iste dolorem animi vitae error totam. At sapiente aliquam accusamus facere veritatis.</p>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                                        <button type="button" class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2" @click="openTicket = false">Deactivate</button>
-                                        <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="openTicket = false" ref="cancelButtonRef">Cancel</button>
+                                        <button type="button" class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" @click="enregistrerPaiement()">
+                                            <svg v-if="loadingPaie" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            </svg>
+                                            <WalletIcon v-else class="h-5 w-5 mr-3" aria-hidden="true" />
+                                            Enregistrer le paiement
+                                        </button>
                                     </div>
                                     </DialogPanel>
                                 </TransitionChild>
@@ -187,20 +168,33 @@
 import { onMounted, ref, watch } from 'vue';
 
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import {  TrashIcon  } from '@heroicons/vue/20/solid'
+import {  TrashIcon, BanknotesIcon, WalletIcon  } from '@heroicons/vue/20/solid'
 
-const emit = defineEmits('maj-produit');
+const emit = defineEmits(['majProduit', 'methodePaie', 'afficherTicket', 'majTotal']);
 
 const opene = ref(false);
-const openTicket = ref(false);
+const loading = ref(false);
+const loadingPaie = ref(false);
 
-const total = ref(0);
+const produitsVendus = ref([]);
+const ticketCaisse = ref({ 
+        produits: [],
+        montant: 0,
+        moyen: '',
+        numero: '',
+        date: ''
+    });
+
+// const total = ref(0);
 
 const props = defineProps({
     articlePanier: {
     type: Array,
     required: true
   }, 
+    total: {
+        type: Number,
+    }
 });
 
 const paymentMethods = [
@@ -214,127 +208,132 @@ const venteMontant = ref();
 
 const selectedPaymentMethod = ref(null);
 
-// Mettre à jour le total lorsque `articlePanier` change
-watch(() => props.articlePanier, () => {
-  calculerTotal();
-});
 
 const miseAJourQuantite = (product) => {
-  // Vérifier si la quantité est supérieure à 0
-  if (product.quantite <= 0) {
-    // Supprimer le product du panier si la quantité est nulle ou négative
-    supprimerDuPanier(product);
-  } else {
-    calculerTotal();
-    
-  }
+
+    if (product.quantite <= 0) {
+        supprimerDuPanier(product);
+    } else {
+        // calculerTotal();
+
+        const nouveauTotal = props.articlePanier.reduce((acc, product) => acc + product.prix, 0);
+
+        emit('majTotal', nouveauTotal)
+    }
+
 };
 
 const supprimerDuPanier = (product) => {
   const index = props.articlePanier.indexOf(product);
   if (index !== -1) {
     props.articlePanier.splice(index, 1);
-    // Mettre à jour le total en recalculant la somme des produits dans le panier
-    calculerTotal();
+    // calculerTotal();
+
+    const nouveauTotal = props.articlePanier.reduce((acc, product) => acc + product.prix, 0);
+
+    emit('majTotal', nouveauTotal)
   }
 };
 
-const calculerTotal = () => {
-  total.value = props.articlePanier.reduce((acc, product) => acc + product.prix * product.quantite, 0);
-};
+// const calculerTotal = () => {
+//   total.value = props.articlePanier.reduce((acc, product) => acc + product.prix * product.quantite, 0);
+// };
 
-// Calculer le total initial lors de la création du composant
-calculerTotal();
+// calculerTotal();
 
 const faireVente = async () => {
 
+    loading.value = true;
+
     try {
-        // Enregistrer la vente dans la table "vente"
-    const venteResponse = await fetch('http://localhost:8000/api/ventes', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        // Inclure les données pertinentes de la vente, comme la date de création et le montant total
-        date_creation: new Date().toISOString(),
-        montant_total: total.value,
+        const venteResponse = await fetch('http://localhost:8000/api/ventes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                date_creation: new Date().toISOString(),
+                montant_total: props.total,
 
-      }),
-    });
+            }),
+        });
     
 
-    // Vérifier la réponse de la requête
-    if (!venteResponse.ok) {
-      throw new Error('Erreur lors de l\'enregistrement de la vente');
-    }
+            if (!venteResponse.ok) {
+            throw new Error('Erreur');
+            }
 
-    // Récupérer les données de la vente créée
-    const venteData = await venteResponse.json();
-    venteId.value = venteData.vente.id;
-    venteMontant.value = venteData.vente.montant_total
-
-    console.log(venteId.value, "vente ID");
-    
-
-    // Parcourir les articles du panier et les enregistrer dans la table "ligne_article"
-    for (const product of props.articlePanier) {
-      const ligneArticleResponse = await fetch('http://localhost:8000/api/lignearticles', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          vente_id: venteId.value,
-          produit_id: product.id,
-          quantite: product.quantite,
-        }),
-      });
-
-      console.log(ligneArticleResponse, "Ligne Article Store");
-
-      // Vérifier la réponse de la requête
-      if (!ligneArticleResponse.ok) {
-        throw new Error('Erreur lors de l\'enregistrement de la ligne d\'article');
-      }
-    }
-
-    // Mettre à jour la quantité des produits
-    for (const product of props.articlePanier) {
-      const updateProductResponse = await fetch(`http://localhost:8000/api/produits/${product.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          quantiteVendue: product.quantite,
-        }),
-      });
-
-      if (!updateProductResponse.ok) {
-        throw new Error('Erreur lors de la mise à jour de la quantité du produit');
-      }
-    }
+            const venteData = await venteResponse.json();
+            venteId.value = venteData.vente.id;
+            venteMontant.value = venteData.vente.montant_total
 
 
-    await enregistrerPaiement(venteId.value);
+            //  table ligne_article
+            for (const product of props.articlePanier) {
+            const ligneArticleResponse = await fetch('http://localhost:8000/api/lignearticles', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                vente_id: venteId.value,
+                produit_id: product.id,
+                quantite: product.quantite,
+                }),
+            });
+
+            //   console.log(ligneArticleResponse, "Ligne Article Store");
+
+            if (!ligneArticleResponse.ok) {
+                throw new Error('Erreur ligne_article');
+            }
+            }
+            
+            // Quantité produit
+            for (const product of props.articlePanier) {
+            const updateProductResponse = await fetch(`http://localhost:8000/api/produits/${product.id}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                quantiteVendue: product.quantite,
+                }),
+            });
+
+            if (!updateProductResponse.ok) {
+                throw new Error('Erreur quantité');
+            }
+            }
+            
+
+            for (const product of props.articlePanier) {
+            produitsVendus.value.push({ produit: product, quantite: product.quantite });
+            }
 
 
     } catch (error) {
-        console.error('Une erreur s\'est produite lors de l\'enregistrement de la vente et du paiement :', error);
+        console.error('Une erreur lors de l\'enregistrement de la vente :', error);
     }
+
+    loading.value = false
 
     opene.value = true
 } 
 
-// Méthode pour sélectionner un moyen de paiement
+// un moyen de paiement
 const selectPaymentMethod = (moyen) => {
   selectedPaymentMethod.value = moyen;
+
+  emit('methodePaie', moyen);
 };
 
 const enregistrerPaiement = async () => {
 
-    // Vérifier si un moyen de paiement a été sélectionné
+    loadingPaie.value = true;
+
+    // console.log(venteId.value, "HAHAHAHAHAHAHA")
+
     if (!selectedPaymentMethod.value) {
         console.error("Veuillez sélectionner un moyen de paiement.");
         return;
@@ -342,13 +341,12 @@ const enregistrerPaiement = async () => {
 
     // Récupérer les données du panier
     const produits = [...props.articlePanier];
-    const totalPanier = total.value;
+    const totalPanier = props.total;
     const selectedPayment = selectedPaymentMethod.value.title;
     
 
 
 try {
-    console.log(venteId.value, "Paiement vente ID 1111111111111");
     const paiementResponse = await fetch('http://localhost:8000/api/paiements', {
     method: 'POST',
     headers: {
@@ -364,42 +362,58 @@ try {
   const paiementData = await paiementResponse.json();
     const paiementMontant = paiementData.montant;
 
-    console.log(paiementMontant, "Montant du Paiement")
+    // console.log(paiementMontant, "Montant du Paiement")
 
   if (!paiementResponse.ok) {
       throw new Error('Erreur lors de l\'enregistrement du paiement');
     }
 
-    // if (selectedPayment === 'Cash' && totalPanier <= paiementMontant) {
-    //   // Imprimer le ticket de caisse
-    // //   imprimerTicket();
-    // }
 
     if (paiementMontant >= venteMontant.value) {
-    // Imprimer le ticket de caisse
     // imprimerTicket();
     // window.open(`/receipt?vente_id=${venteId.value}&paiement_id=${paiementData.id}`, '_blank');
     // window.print();
     console.log("Tu peux imprimer le ticket");
-  }
 
+    // ticketCaisse.value = [];
+    ticketCaisse.value = {
+    produits: [],
+    
+    };
+
+    for (const produitVendu of produitsVendus.value) {
+        const produit = produitVendu.produit;
+        const quantite = produitVendu.quantite;
+
+        ticketCaisse.value.produits.push({
+            produit,
+            quantite
+        })
+    }
+        ticketCaisse.value.montant = paiementMontant;
+        ticketCaisse.value.moyen = selectedPayment;
+        ticketCaisse.value.numero = paiementData.numero;
+        ticketCaisse.value.date = paiementData.created_at;
+
+        // openTicket.value = true;
+        
+    }
     
 } catch (error) {
-    console.error('Une erreur s\'est produite lors de l\'enregistrement de la vente et du paiement :', error);
-}
-    // Réinitialiser le panier et fermer le modal
-    props.articlePanier.splice(0);
-    total.value = 0;
-    // opene.value = false;
-    emit('majProduit');
+    console.error('Une erreur du paiement :', error);
 }
 
-const imprimerTicket = () => {
-    openTicket.value = true;
+// console.log(ticketCaisse.value,  " PRODUITS VENDUE POUR LE TICKET" )
+
+    loadingPaie.value = false;
+    // props.articlePanier.splice(0); //pas bon
+    // props.total = 0;
+    opene.value = false;
+    emit('majProduit' , ticketCaisse.value);
 }
 
 
-onMounted(calculerTotal);
-watch(props.articlePanier, calculerTotal);
+// onMounted(calculerTotal);
+watch(props.articlePanier);
 
 </script>

@@ -76,7 +76,7 @@ class ProduitsTableSeeder extends Seeder
             'reference' => 'PROD008',
             'code_barre' => '3456789012843',
             'designation' => 'Tasse',
-            'quantite' => 6,
+            'quantite' => 0,
             'prix' => 8700,
             'image' => 'https://tailwindui.com/img/ecommerce-images/category-page-03-image-card-08.jpg',
         ]);
