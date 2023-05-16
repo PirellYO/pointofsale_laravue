@@ -165,7 +165,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import {  ref, watch } from 'vue';
 
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import {  TrashIcon, BanknotesIcon, WalletIcon  } from '@heroicons/vue/20/solid'
@@ -373,9 +373,9 @@ try {
     // imprimerTicket();
     // window.open(`/receipt?vente_id=${venteId.value}&paiement_id=${paiementData.id}`, '_blank');
     // window.print();
-    console.log("Tu peux imprimer le ticket");
-
-    // ticketCaisse.value = [];
+    
+    
+    // console.log(produitsVendus.value,"Oui, vraiment Tu peux imprimer le ticket");
     ticketCaisse.value = {
     produits: [],
     
@@ -398,6 +398,7 @@ try {
         // openTicket.value = true;
         
     }
+    produitsVendus.value = [];
     
 } catch (error) {
     console.error('Une erreur du paiement :', error);

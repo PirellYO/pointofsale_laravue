@@ -64,7 +64,6 @@
                     </h1>
 
                 </div>
-
             </div>
         </div>
     </div>
@@ -80,6 +79,7 @@ const props = defineProps({
     }
 });
 
-console.log(props);
+
+console.log(props, "GREAT");
 
 </script>

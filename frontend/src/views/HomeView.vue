@@ -168,7 +168,6 @@ const ajoutAuPanier = (product) => {
 const majTotal = () => {
   
   total.value = articlePanier.value.reduce((acc, product) => acc + product.prix * product.quantite, 0);
-  console.log(total.value, "TOTAL APRES AJOUT AU PANIER")
 
 }
 
@@ -176,11 +175,6 @@ const methodePaie = (moyen) => {
   moyenPaie.value = moyen.title ;
 }
 
-clientTicket.value = {
-    produits: [],
-    
-  };
-console.log(clientTicket.value, "MONTRE MOI L'INFO 0000");
 
 const majProduit = async (info) =>{
   await getProducts()
@@ -189,13 +183,11 @@ const majProduit = async (info) =>{
     produits: [],
     
   };
-  console.log(clientTicket.value, "MONTRE MOI L'INFO 1111");
   
   articlePanier.value = [];
   majTotal()
   
   clientTicket.value = info;
-  console.log(clientTicket.value, "MONTRE MOI L'INFO 2222");
 
 
    openTicket.value = true;
@@ -231,13 +223,15 @@ const closeTicket = () => {
     
   };
   
-  console.log(clientTicket.value, "VALEUR FINALE")
+  // console.log(clientTicket.value, "VALEUR FINALE")
 
   // articlePanier.value = [];
   // total.value = 0;
   
   openTicket.value = false
 }
+
+
 
 onMounted(async () => {
   await getProducts();
