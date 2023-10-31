@@ -44,12 +44,12 @@ class SaleController extends Controller
 
         $vente = new Vente();
         $vente->numero = $this->generateSaleNumber();
-        $vente->date_creation = now(); 
+        $vente->date_creation = now();
         $vente->montant_total = $totalPanier;
         $vente->save();
 
 
-        return response()->json(['vente' => $vente], 201); 
+        return response()->json(['vente' => $vente], 201);
        }
 
     /**
@@ -57,7 +57,7 @@ class SaleController extends Controller
      */
     public function show(Vente $id)
     {
-        //
+        // Ceci est un commentaire
 
         $vente = Vente::with('produits')->findOrFail($id);
         return response()->json($vente);
