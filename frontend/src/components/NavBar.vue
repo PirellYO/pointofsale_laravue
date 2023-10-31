@@ -13,7 +13,7 @@
                   <span class="flex text-blue-600 font-bold"><SwatchIcon class="mr-2 h-6 w-6" aria-hidden="true" /><span class="hidden md:flex">Liste des ventes</span></span>
                 </RouterLink>
                 <RouterLink to="/paiements">
-                  <span href="#" class="flex text-blue-600 font-bold"><CreditCardIcon class="mr-2 h-6 w-6 " aria-hidden="true" /><span class="hidden md:flex">Listes des paiements</span></span>
+                  <span class="flex text-blue-600 font-bold"><CreditCardIcon class="mr-2 h-6 w-6 " aria-hidden="true" /><span class="hidden md:flex">Listes des paiements</span></span>
                 </RouterLink>
         </div>
       </div>
