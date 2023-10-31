@@ -27,6 +27,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/hamcrest/hamcrest-php" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/laravel/framework" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/laravel/pint" />
+      <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/laravel/prompts" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/laravel/sail" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/laravel/sanctum" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/laravel/serializable-closure" />
@@ -54,6 +55,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/phpunit/php-text-template" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/phpunit/php-timer" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/phpunit/phpunit" />
+      <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/psr/clock" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/psr/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/psr/http-client" />
@@ -102,6 +104,7 @@
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/symfony/polyfill-mbstring" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/symfony/polyfill-php72" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/symfony/polyfill-php80" />
+      <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/symfony/polyfill-php83" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/symfony/polyfill-uuid" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/backendlara/vendor/symfony/routing" />

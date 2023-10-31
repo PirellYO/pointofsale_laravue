@@ -110,6 +110,9 @@
       <path value="$PROJECT_DIR$/backendlara/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/backendlara/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/backendlara/vendor/fruitcake/php-cors" />
+      <path value="$PROJECT_DIR$/backendlara/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/backendlara/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/backendlara/vendor/laravel/prompts" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
